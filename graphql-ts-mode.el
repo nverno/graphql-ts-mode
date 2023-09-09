@@ -1,13 +1,15 @@
-;;; graphql-ts-mode.el --- tree-sitter support for GraphQL  -*- lexical-binding: t; -*-
+;;; graphql-ts-mode.el --- Tree-sitter support for GraphQL  -*- lexical-binding: t; -*-
 
 ;;; Copyright (C) 2023 Joram Schrijver <i@joram.io>
 
 ;;; Author: Joram Schrijver <i@joram.io>
 ;;; Maintainer: Joram Schrijver <i@joram.io>
-;;; Created September 2023
-;;; Version 0.0.1
-;;; Keywords: languages graphql tree-sitter
+;;; Created: September 2023
+;;; Version: 0.1.0
 ;;; License: GPL-3.0-or-later
+;;; Package-Requires: ((emacs "29.1"))
+;;; Keywords: languages graphql tree-sitter
+;;; URL: https://sr.ht/~joram/graphql-ts-mode/
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -45,7 +47,8 @@
 
 (defvar graphql-ts-mode--keywords
   '("schema" "type" "query" "mutation" "subscription" "extend" "fragment" "on"
-    "input" "enum" "scalar" "union" "interface" "directive" "repeatable"))
+    "input" "enum" "scalar" "union" "interface" "directive" "repeatable")
+  "Keywords to highlight in `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--syntax-table
   (let ((table (make-syntax-table)))
@@ -88,7 +91,8 @@
        ((parent-is "arguments") parent-bol ,offset)
        ((parent-is "argument") parent-bol 0)
        ((parent-is "object_value") parent-bol ,offset)
-       ((parent-is "list_value") parent-bol ,offset)))))
+       ((parent-is "list_value") parent-bol ,offset))))
+  "Tree sitter indentation rules for `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--font-lock-settings
   (treesit-font-lock-rules
@@ -148,7 +152,8 @@
       (scalar_type_definition (name) @font-lock-function-name-face)
       (fragment_definition (fragment_name) @font-lock-function-name-face)
       (directive_definition ("@" @font-lock-function-name-face
-                             (name) @font-lock-function-name-face))])))
+                             (name) @font-lock-function-name-face))]))
+  "Tree sitter font lock rules for `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--imenu-settings
   '(("Schema" "schema_definition")
@@ -160,10 +165,11 @@
     ("Enum" "enum_type_definition")
     ("Input" "input_object_type_definition")
     ("Directive" "directive_definition")
-    ("Operation" "operation_definition")))
+    ("Operation" "operation_definition"))
+  "Tree sitter imenu settings for `graphql-ts-mode'.")
 
 (defun graphql-ts-mode--fill-paragraph (&optional justify)
-  "Fill and possibly JUSTIFY paragraph, making sure to stay inside a string."
+  "Fill and possibly JUSTIFY paragraph, making sure to stay inside strings."
   (or
    ;; Standard comment handling works fine
    (fill-comment-paragraph justify)
@@ -181,7 +187,7 @@
    t))
 
 (defun graphql-ts-mode--defun-name (node)
-  "Return the GraphQL defun name for NODE."
+  "Return the GraphQL defun name for NODE, or NIL."
   (cl-flet ((capture (q)
               (mapconcat 'treesit-node-text
                          (treesit-query-capture node q nil nil t))))
@@ -229,12 +235,12 @@
                              "fragment")
                          "_definition")))
     (setq-local treesit-simple-imenu-settings graphql-ts-mode--imenu-settings)
-    (setq-local treesit-defun-name-function 'graphql-ts-mode--defun-name)
+    (setq-local treesit-defun-name-function #'graphql-ts-mode--defun-name)
 
     (setq-local electric-indent-chars
                 (append "(){}[]" electric-indent-chars))
 
-    (setq fill-paragraph-function 'graphql-ts-mode--fill-paragraph)
+    (setq fill-paragraph-function #'graphql-ts-mode--fill-paragraph)
     ;; paragraph-{start,separate} are set so that triple-double-quote strings
     ;; where the quotes are on separate lines stay that way.
     (setq-local paragraph-start "\f\\|[ \t]*$\\|[ \t]*\"\"\"[ \t]*$")
