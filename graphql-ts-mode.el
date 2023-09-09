@@ -91,7 +91,8 @@
        ((parent-is "arguments") parent-bol ,offset)
        ((parent-is "argument") parent-bol 0)
        ((parent-is "object_value") parent-bol ,offset)
-       ((parent-is "list_value") parent-bol ,offset))))
+       ((parent-is "list_value") parent-bol ,offset)
+       ((parent-is "string_value") parent-bol 0))))
   "Tree sitter indentation rules for `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--font-lock-settings
@@ -207,6 +208,15 @@
       ("directive_definition"
        (capture '((directive_definition "@" @a (name) @name)))))))
 
+(defun graphql-ts-mode--pair-block-string ()
+  "Complete quotes for a block string when using `electric-pair-mode'."
+  (when (and electric-pair-mode
+             (eq ?\" last-command-event)
+             (eq 3 (cl-loop for n from 0
+                            while (eq ?\" (char-before (- (point) n)))
+                            count 1)))
+    (save-excursion (insert "\"\""))))
+
 ;;;###autoload
 (define-derived-mode graphql-ts-mode prog-mode "GraphQL"
   "Major mode for editing GraphQL, powered by tree-sitter."
@@ -240,9 +250,12 @@
     (setq-local electric-indent-chars
                 (append "(){}[]" electric-indent-chars))
 
+    (add-hook 'post-self-insert-hook
+              #'graphql-ts-mode--pair-block-string 90 t)
+
     (setq fill-paragraph-function #'graphql-ts-mode--fill-paragraph)
-    ;; paragraph-{start,separate} are set so that triple-double-quote strings
-    ;; where the quotes are on separate lines stay that way.
+    ;; paragraph-{start,separate} are set so that block strings where the
+    ;; quotes are on separate lines stay that way.
     (setq-local paragraph-start "\f\\|[ \t]*$\\|[ \t]*\"\"\"[ \t]*$")
     (setq-local paragraph-separate "[ \t\f]*$\\|[ \t]*\"\"\"[ \t]*$")
 
