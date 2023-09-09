@@ -1,10 +1,10 @@
 # graphql-ts-mode
 
-This is a major mode based on the built in support for [tree-sitter][ts] in
-Emacs, for editing [GraphQL][gql] documents.
+This is a major mode for editing [GraphQL][gql] documents based on the built in
+support for [tree-sitter][ts] in Emacs.
 
-[ts]: https://tree-sitter.github.io/tree-sitter/
 [gql]: https://graphql.org/
+[ts]: https://tree-sitter.github.io/tree-sitter/
 
 ## Installation
 
