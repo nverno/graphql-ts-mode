@@ -77,13 +77,17 @@
   (let ((offset graphql-ts-indent-offset))
     `((graphql
        ((parent-is "source_file") column-0 0)
+       ((parent-is "document") column-0 0)
        ((node-is ")") parent-bol 0)
        ((node-is "}") parent-bol 0)
        ((node-is "]") parent-bol 0)
+       ((node-is "root_operation_type_definition") parent-bol ,offset)
        ((parent-is "fields_definition") parent-bol ,offset)
+       ((parent-is "field_definition") parent-bol 0)
        ((parent-is "arguments_definition") parent-bol ,offset)
        ((parent-is "input_value_definition") parent-bol 0)
        ((parent-is "enum_values_definition") parent-bol ,offset)
+       ((parent-is "enum_value_definition") parent-bol 0)
        ((parent-is "input_fields_definition") parent-bol ,offset)
        ((parent-is "root_operation_type_definition") parent-bol ,offset)
        ((parent-is "variable_definitions") parent-bol ,offset)
@@ -92,7 +96,8 @@
        ((parent-is "argument") parent-bol 0)
        ((parent-is "object_value") parent-bol ,offset)
        ((parent-is "list_value") parent-bol ,offset)
-       ((parent-is "string_value") parent-bol 0))))
+       ((parent-is "string_value") parent-bol 0)
+       ((parent-is "definition") parent-bol 0))))
   "Tree sitter indentation rules for `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--font-lock-settings
