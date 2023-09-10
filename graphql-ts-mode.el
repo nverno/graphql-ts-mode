@@ -258,7 +258,7 @@
     (add-hook 'post-self-insert-hook
               #'graphql-ts-mode--pair-block-string 90 t)
 
-    (setq fill-paragraph-function #'graphql-ts-mode--fill-paragraph)
+    (setq-local fill-paragraph-function #'graphql-ts-mode--fill-paragraph)
     ;; paragraph-{start,separate} are set so that block strings where the
     ;; quotes are on separate lines stay that way.
     (setq-local paragraph-start "\f\\|[ \t]*$\\|[ \t]*\"\"\"[ \t]*$")
