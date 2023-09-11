@@ -195,7 +195,7 @@
 (defun graphql-ts-mode--defun-name (node)
   "Return the GraphQL defun name for NODE, or NIL."
   (cl-flet ((capture (q)
-              (mapconcat 'treesit-node-text
+              (mapconcat #'treesit-node-text
                          (treesit-query-capture node q nil nil t))))
     (pcase (treesit-node-type node)
       ("scalar_type_definition"
