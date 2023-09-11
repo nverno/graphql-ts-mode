@@ -1,15 +1,15 @@
 ;;; graphql-ts-mode.el --- Tree-sitter support for GraphQL  -*- lexical-binding: t; -*-
 
-;;; Copyright (C) 2023 Joram Schrijver <i@joram.io>
+;; Copyright (C) 2023 Joram Schrijver <i@joram.io>
 
-;;; Author: Joram Schrijver <i@joram.io>
-;;; Maintainer: Joram Schrijver <i@joram.io>
-;;; Created: September 2023
-;;; Version: 0.1.0
-;;; License: GPL-3.0-or-later
-;;; Package-Requires: ((emacs "29.1"))
-;;; Keywords: languages graphql tree-sitter
-;;; URL: https://sr.ht/~joram/graphql-ts-mode/
+;; Author: Joram Schrijver <i@joram.io>
+;; Maintainer: Joram Schrijver <i@joram.io>
+;; Created: September 2023
+;; Version: 0.1.0
+;; License: GPL-3.0-or-later
+;; Package-Requires: ((emacs "29.1"))
+;; Keywords: languages graphql tree-sitter
+;; URL: https://sr.ht/~joram/graphql-ts-mode/
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
