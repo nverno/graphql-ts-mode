@@ -49,7 +49,8 @@
 
 (defvar graphql-ts-mode--keywords
   '("schema" "type" "query" "mutation" "subscription" "extend" "fragment" "on"
-    "input" "enum" "scalar" "union" "interface" "directive" "repeatable")
+    "input" "enum" "scalar" "union" "interface" "implements" "directive"
+    "repeatable")
   "Keywords to highlight in `graphql-ts-mode'.")
 
 (defvar graphql-ts-mode--syntax-table
