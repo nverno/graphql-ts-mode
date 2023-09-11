@@ -32,7 +32,9 @@
 ;;; Code:
 
 (require 'treesit)
-(eval-when-compile (require 'rx))
+(eval-when-compile
+  (require 'rx)
+  (require 'cl-lib))
 
 (defgroup graphql-ts nil
   "Major mode for editing GraphQL code."
