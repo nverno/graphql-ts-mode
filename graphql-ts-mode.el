@@ -45,7 +45,7 @@
   "Number of spaces for each indentation step in `graphql-ts-mode'."
   :type 'integer
   :safe 'integerp
-  :group 'graphql)
+  :group 'graphql-ts)
 
 (defvar graphql-ts-mode--keywords
   '("schema" "type" "query" "mutation" "subscription" "extend" "fragment" "on"
