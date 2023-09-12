@@ -1,5 +1,7 @@
 # graphql-ts-mode
 
+[![MELPA](https://melpa.org/packages/graphql-ts-mode-badge.svg)](https://melpa.org/#/graphql-ts-mode)
+
 This is a major mode for editing [GraphQL][gql] documents based on the built in
 support for [tree-sitter][ts] in Emacs.
 
@@ -13,8 +15,28 @@ the [grammar available here][grammar].
 
 [grammar]: https://github.com/bkegley/tree-sitter-graphql
 
-You will currently have to install from source. Clone this repository to
-`~/.emacs.d/lisp/graphql-ts-mode/`, then configure it like this:
+The installation snippets below add configuration to automatically install the
+grammar using `treesit-install-language-grammar`. This requires a working C
+compiler. Install the grammar before opening a GraphQL file to avoid errors.
+
+### From MELPA
+
+This package is available from [MELPA](https://melpa.org/).
+
+```
+(use-package graphql-ts-mode
+  :ensure t
+  :mode ("\\.graphql\\'" "\\.gql\\'")
+  :init
+  (with-eval-after-load 'treesit
+    (add-to-list 'treesit-language-source-alist
+                 '(graphql "https://github.com/bkegley/tree-sitter-graphql"))))
+```
+
+### From source
+
+Clone this repository to `~/.emacs.d/lisp/graphql-ts-mode/` or another path,
+then configure it like this:
 
 ```elisp
 (use-package graphql-ts-mode
@@ -26,8 +48,6 @@ You will currently have to install from source. Clone this repository to
     (add-to-list 'treesit-language-source-alist
                  '(graphql "https://github.com/bkegley/tree-sitter-graphql"))))
 ```
-
-Install the grammar using `treesit-install-language-grammar`.
 
 ## Comparison to graphql-mode
 
