@@ -1,0 +1,16 @@
+image: alpine/edge
+secrets:
+  - 92dae554-3d21-4608-83d8-b990f12d8e16
+sources:
+  - git+ssh://git@git.sr.ht/~nverno/graphql-ts-mode
+tasks:
+  - check: |
+      cd graphql-ts-mode
+      if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then \
+        complete-build; \
+      fi
+  - mirror: |
+      cd graphql-ts-mode
+      git remote add github git@github.com:nverno/graphql-ts-mode.git
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      git push github master

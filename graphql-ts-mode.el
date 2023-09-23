@@ -144,6 +144,11 @@
       ((named_type) @font-lock-type-face)])
 
    :language 'graphql
+   :feature 'operator
+   :override t
+   '(["!"] @font-lock-operator-face)
+
+   :language 'graphql
    :feature 'keyword
    `([,@graphql-ts-mode--keywords] @font-lock-keyword-face)
 
@@ -160,6 +165,8 @@
       (interface_type_definition (name) @font-lock-function-name-face)
       (scalar_type_definition (name) @font-lock-function-name-face)
       (fragment_definition (fragment_name) @font-lock-function-name-face)
+      (field_definition (name) @font-lock-property-name-face)
+      (operation_definition _ (name) @font-lock-function-name-face)
       (directive_definition ("@" @font-lock-function-name-face
                              (name) @font-lock-function-name-face))]))
   "Tree sitter font lock rules for `graphql-ts-mode'.")
@@ -243,7 +250,7 @@
     (setq-local treesit-font-lock-feature-list
                 '((comment constant definition)
                   (keyword string number type variable)
-                  (bracket delimiter)))
+                  (bracket delimiter operator)))
 
     (setq-local treesit-defun-type-regexp
                 (rx (seq (or "schema"
