@@ -136,17 +136,19 @@
    '([((variable) @font-lock-variable-use-face)
       (input_value_definition (name) @font-lock-variable-name-face)
       (argument (name) @font-lock-variable-name-face)
-      (object_field (name) @font-lock-property-name-face)])
+      (object_field (name) @font-lock-property-name-face)]
+     (field (name) @font-lock-property-name-face)
+     (fragment_name (name) @font-lock-function-call-face))
 
    :language 'graphql
    :feature 'type
    '([((type) @font-lock-type-face)
       ((named_type) @font-lock-type-face)])
-
+   
    :language 'graphql
    :feature 'operator
    :override t
-   '(["!"] @font-lock-operator-face)
+   '(["!" "..."] @font-lock-operator-face)
 
    :language 'graphql
    :feature 'keyword
